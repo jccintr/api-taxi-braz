@@ -9,5 +9,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::post('/auth/login',[AuthController::class,'signIn']);
-Route::middleware('auth:sanctum')->post('/auth/logout',[AuthController::class,'signOut']);
+Route::post('/auth/login',[AuthController::class,'login']);
+Route::middleware('auth:sanctum')->post('/auth/logout',[AuthController::class,'logout']);
+Route::middleware('auth:sanctum','verified')->get('/auth/token',[AuthController::class,'checkToken']);

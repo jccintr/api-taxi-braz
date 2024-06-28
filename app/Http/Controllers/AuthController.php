@@ -9,7 +9,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function signIn(Request $request){
+    public function login(Request $request){
 
         $email = filter_var($request->email,FILTER_VALIDATE_EMAIL);
         $password = $request->password;
@@ -36,10 +36,15 @@ class AuthController extends Controller
 
     }
 
-    public function signOut (Request $request) {
+    public function logout (Request $request) {
 
         //Auth::User()->currentAccessToken()->delete();
         Auth::User()->tokens()->delete();
         return response()->json(['mensagem'=>'User logged out'],200);
+    }
+
+    public function checkToken(Request $request) {
+  
+        return response()->json(Auth::User(),200);
     }
 }
